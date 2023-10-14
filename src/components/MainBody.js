@@ -26,31 +26,27 @@ const MainBody = () => {
   const [IsModalOpen, setIsModalOpen] = useState(false);
   const [editValue, setEditValue] = useState(false);
   const [editData, setEditData] = useState([]);
-  const [rowsData, setRowsData] = useState([]);
+  const [rowsData, setRowsData] = useState(rowData);
+  console.log("log check", rowsData);
   //   const [allrowData, setAllRowsData] = useState([]);
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
 
   const SimpleComp = (p) => {
+    console.log("render");
+    console.log(p);
+    console.log(p.colDef.cellRendererParams);
+    // const { onDelete } = p.colDef.cellRendererParams;
     const onEdit = useCallback(() => {
       setIsModalOpen(!IsModalOpen);
       setEditValue(!editValue);
       setEditData(p.data);
       console.log(p.data);
     });
-    const onDelete = useCallback(() => {
-      console.log(rowsData);
-      //   const filterDelData = rowsData.filter((data) => {
-      //     console.log(rowsData);
-      //     console.log(data);
-      //     console.log(data.Id != p.data.Id);
-      //     return data.Id !== p.data.Id;
-      //   });
-      //   console.log(filterDelData);
-      //   setRowsData(filterDelData);
-      //   console.log(p.data.Name);
-    }, [p.Id, rowsData]);
+    const handleDelete = () => {
+      onDelete(p.data);
+    };
 
     return (
       <>
@@ -63,7 +59,7 @@ const MainBody = () => {
           </button>
           <button
             className="px-4 rounded-md text-center bg-green-400"
-            onClick={onDelete}
+            onClick={handleDelete}
           >
             Delete
           </button>
@@ -79,45 +75,37 @@ const MainBody = () => {
     { field: "Std" },
     { field: "Address" },
     { field: "Gender" },
-    { field: "Action", cellRenderer: SimpleComp },
+    {
+      field: "Action",
+      cellRenderer: SimpleComp,
+      //   cellRendererParams: {
+      //     onDelete: (dataToDelete) => onDelete(dataToDelete),
+      //   },
+    },
   ]);
+
+  const onDelete = (p) => {
+    console.log("onDeleteOutSide");
+    console.log(rowsData);
+
+    const filteredData = rowsData.filter((data) => data.Id !== p.Id);
+    setRowsData(filteredData);
+  };
 
   const cellClickedListener = useCallback((event) => {
     console.log("cellClicked", event.data.Id);
     // if (event.colDef.field === "Action") {
     //   setIsModalOpen(!IsModalOpen);
     // }
-  }, []);
+    console.log("cell click");
+    onDelete(event);
+  });
 
   const handleOpenModal = () => {
     setIsModalOpen(!IsModalOpen);
     setEditValue(false);
   };
 
-  // edit Logic
-  // const editDataFilter = rowsData.find((data) => {
-  //   return data.Id === editData?.Id;
-  // });
-
-  // console.log(editDataFilter);
-
-  // const updatedTaskIndex = rowsData.findIndex((data) => {
-  //   return data.Id === editDataFilter?.Id;
-  // });
-  // console.log(updatedTaskIndex);
-  // rowsData.splice(updatedTaskIndex, 1);
-  // setRowsData(editDataFilter);
-
-  useEffect(() => {
-    // console.log("useEffect");
-    setRowsData(rowData);
-    // setAllRowsData(rowData);
-  }, []);
-
-  //   if (rowsData.length === 0) {
-  //     return;
-  //   }
-  console.log(rowsData);
   return (
     <>
       <button

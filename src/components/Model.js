@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { generateUniqueId } from "../constant";
+import { generateUniqueId } from "../constant.js";
 
 const Model = ({
   rowData,
@@ -218,7 +218,7 @@ const Model = ({
             </button>
           ) : (
             <button
-              // onClick={}
+              onClick={handleAdd}
               className="p-2 bg-blue-400 rounded-md hover:bg-blue-500  mt-2"
             >
               Submit
