@@ -25,6 +25,7 @@ const MainBody = () => {
   //define the col
   const [IsModalOpen, setIsModalOpen] = useState(false);
   const [editValue, setEditValue] = useState(false);
+  const [activePage, setActivePage] = useState(true);
   const [editData, setEditData] = useState([]);
   const [rowsData, setRowsData] = useState(rowData);
   console.log("log check", rowsData);
@@ -104,6 +105,7 @@ const MainBody = () => {
   const handleOpenModal = () => {
     setIsModalOpen(!IsModalOpen);
     setEditValue(false);
+    setActivePage(!activePage);
   };
 
   return (
@@ -112,7 +114,7 @@ const MainBody = () => {
         onClick={handleOpenModal}
         className="p-2 bg-blue-400 rounded-md hover:bg-blue-500 "
       >
-        Add Student
+        {activePage ? "Add Student" : "Back"}
       </button>
       {IsModalOpen && (
         <Model
@@ -123,6 +125,8 @@ const MainBody = () => {
           IsModalOpenHandle={IsModalOpen}
           setModelOpenHandleFn={setIsModalOpen}
           setEditDatas={setEditData}
+          setActiveFn={setActivePage}
+          setActiveVar={activePage}
         />
       )}
 

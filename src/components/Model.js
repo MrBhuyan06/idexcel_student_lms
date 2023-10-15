@@ -9,6 +9,8 @@ const Model = ({
   setEditDatas,
   setModelOpenHandleFn,
   IsModalOpenHandle,
+  setActiveFn,
+  setActiveVar,
 }) => {
   console.log("edit", edit);
   console.log("editData", editDatas);
@@ -49,6 +51,7 @@ const Model = ({
 
     console.log(editDatas);
     setModelOpenHandleFn(false);
+    setActiveFn(true);
   }
 
   return (
@@ -100,7 +103,7 @@ const Model = ({
 
                   setEditDatas({ ...editDatas, Name: e.target.value });
                 }}
-                value={editDatas?.Name ? editDatas.Name : ""}
+                value={editDatas?.Name ? editDatas.Name : name}
               />
             </div>
 
