@@ -130,12 +130,13 @@ const Model = ({
                 type="number"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
-                onChange={(e) => {
-                  setAge(e.target.value);
+                disabled
+                // onChange={(e) => {
+                //   setAge(e.target.value);
 
-                  setEditDatas({ ...editDatas, Age: e.target.value });
-                }}
-                value={editDatas.Age}
+                //   setEditDatas({ ...editDatas, Age: e.target.value });
+                // }}
+                value={Age}
               />
             </div>
 
@@ -148,6 +149,12 @@ const Model = ({
                 className="select select-bordered"
                 onChange={(e) => {
                   setStd(e.target.value);
+                  console.log(typeof e.target.value);
+                  if (e.target.value === "1") {
+                    setAge(6);
+                  } else {
+                    setAge(Number(e.target.value) + 6);
+                  }
                   setEditDatas({ ...editDatas, Std: e.target.value });
                 }}
                 value={editDatas?.Std}
