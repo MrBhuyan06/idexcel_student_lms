@@ -28,6 +28,8 @@ const MainBody = () => {
   const [activePage, setActivePage] = useState(true);
   const [editData, setEditData] = useState([]);
   const [rowsData, setRowsData] = useState(rowData);
+  const [viewData, setViewsData] = useState();
+  const [viewMode, setViewMode] = useState(false);
   console.log("log check", rowsData);
   //   const [allrowData, setAllRowsData] = useState([]);
   // const [open, setOpen] = React.useState(false);
@@ -94,12 +96,19 @@ const MainBody = () => {
   };
 
   const cellClickedListener = useCallback((event) => {
-    console.log("cellClicked", event.data.Id);
-    // if (event.colDef.field === "Action") {
-    //   setIsModalOpen(!IsModalOpen);
-    // }
-    console.log("cell click");
-    onDelete(event);
+    // console.log("cellClicked", event.data.Id);
+
+    if (event.colDef.field === "Name") {
+      console.log("got the pont");
+      console.log([event.data]);
+      setViewsData(event.data);
+      console.log(viewData);
+      setViewMode(!viewMode);
+      console.log(viewMode);
+      setIsModalOpen(!IsModalOpen);
+      setActivePage(!activePage);
+    }
+    // onDelete(event);
   });
 
   const handleOpenModal = () => {
@@ -127,6 +136,9 @@ const MainBody = () => {
           setEditDatas={setEditData}
           setActiveFn={setActivePage}
           setActiveVar={activePage}
+          setViewDataFn={setViewsData}
+          setViewDataVar={viewData}
+          setViewValue={viewMode}
         />
       )}
 

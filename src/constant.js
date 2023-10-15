@@ -6,7 +6,7 @@ export const rowData = [
   {
     Id: generateUniqueId(),
     Name: "Abhishek",
-    Dob: "06/01/2000",
+    Dob: "06-01-2000",
     Age: 23,
     Std: 6,
     Address: "Bbsr bhubaneswar orakal sundarpada",
@@ -16,11 +16,11 @@ export const rowData = [
   {
     Id: generateUniqueId(),
     Name: "subham",
-    Dob: "06/01/2000",
+    Dob: "23-01-2000",
     Age: 23,
     Std: 6,
     Address: "Bbsr bhubaneswar orakal sundarpada",
-    Gender: "male",
+    Gender: "female",
     Action: "",
   },
 ];

@@ -11,15 +11,20 @@ const Model = ({
   IsModalOpenHandle,
   setActiveFn,
   setActiveVar,
+  setViewDataFn,
+  setViewDataVar,
+  setViewValue,
 }) => {
   console.log("edit", edit);
   console.log("editData", editDatas);
+  console.log("read data", setViewDataVar);
+  console.log("view", setViewValue);
   const [name, setName] = useState("");
   const [Age, setAge] = useState();
   const [Dob, setDob] = useState("");
   const [Std, setStd] = useState("");
   const [Address, setAddress] = useState("");
-  const [Gender, setGender] = useState("");
+  const [Gender, setGender] = useState("male");
   const [rowssData, setRowssData] = useState({});
 
   function handleAdd() {
@@ -103,7 +108,12 @@ const Model = ({
 
                   setEditDatas({ ...editDatas, Name: e.target.value });
                 }}
-                value={editDatas?.Name ? editDatas.Name : name}
+                value={
+                  editDatas?.Name || setViewDataVar?.Name
+                    ? editDatas.Name || setViewDataVar.Name
+                    : name
+                }
+                disabled={setViewValue}
               />
             </div>
 
@@ -116,11 +126,17 @@ const Model = ({
                 type="date"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
-                value={editDatas?.Dob}
+                value={
+                  editDatas?.Dob || setViewDataVar?.Dob
+                    ? editDatas?.Dob || setViewDataVar?.Dob
+                    : Dob
+                }
                 onChange={(e) => {
                   setDob(e.target.value);
+                  console.log(typeof e.target.value);
                   setEditDatas({ ...editDatas, Dob: e.target.value });
                 }}
+                disabled={setViewValue}
               />
             </div>
 
@@ -160,7 +176,13 @@ const Model = ({
                   }
                   setEditDatas({ ...editDatas, Std: e.target.value });
                 }}
-                value={editDatas?.Std}
+                // value={editDatas?.Std}
+                value={
+                  editDatas?.Std || setViewDataVar?.Std
+                    ? editDatas?.Std || setViewDataVar?.Std
+                    : ""
+                }
+                disabled={setViewValue}
               >
                 <option disabled selected>
                   Std
@@ -178,29 +200,48 @@ const Model = ({
               </select>
             </div>
 
-            <div className="form-control  flex flex-row  gap-2 mt-2">
+            <div className="form-control flex flex-row gap-2 mt-2">
               Male
               <input
                 type="radio"
                 name="radio-1"
-                {...(editDatas?.Gender === "male" ? "checked" : "")}
-                onClick={(e) => {
-                  setGender(e.target.value);
-                  // setEditDatas({ ...editDatas, Gender: e.target.value });
+                // // checked={editDatas?.Gender === "male"}
+                // checked
+                onClick={() => {
+                  setGender("male");
                 }}
                 className="radio"
-                value={editDatas?.Gender ? editDatas.Gender : "male"}
+                value={
+                  editDatas?.Gender || setViewDataVar?.Gender
+                    ? editDatas?.Gender || setViewDataVar?.Gender
+                    : "male"
+                }
+                checked={
+                  editDatas?.Gender === "male" ||
+                  setViewDataVar?.Gender === "male" ||
+                  Gender
+                }
+                disabled={setViewValue}
               />
               Female
               <input
                 type="radio"
                 name="radio-1"
-                className="radio"
-                onClick={(e) => {
-                  setGender(e.target.value);
-                  // setEditDatas({ ...editDatas, Gender: e.target.value });
+                checked={
+                  editDatas?.Gender === "female" ||
+                  setViewDataVar?.Gender === "female" ||
+                  Gender
+                }
+                onClick={() => {
+                  setGender("female");
                 }}
-                {...(editDatas?.Gender === "female" ? "checked" : "")}
+                className="radio"
+                value={
+                  editDatas?.Gender || setViewDataVar?.Gender
+                    ? editDatas?.Gender || setViewDataVar?.Gender
+                    : "female"
+                }
+                disabled={setViewValue}
               />
             </div>
 
@@ -215,7 +256,12 @@ const Model = ({
                   setAddress(e.target.value);
                   setEditDatas({ ...editDatas, Address: e.target.value });
                 }}
-                value={editDatas?.Address}
+                value={
+                  editDatas?.Address || setViewDataVar?.Address
+                    ? editDatas?.Address || setViewDataVar?.Address
+                    : Address
+                }
+                disabled={setViewValue}
               ></textarea>
             </div>
           </div>
@@ -230,6 +276,7 @@ const Model = ({
             <button
               onClick={handleAdd}
               className="p-2 bg-blue-400 rounded-md hover:bg-blue-500  mt-2"
+              disabled={setViewValue}
             >
               Submit
             </button>
